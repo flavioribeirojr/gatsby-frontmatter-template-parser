@@ -28,6 +28,14 @@ describe('FrontMatterTemplateParser', function () {
 
       assert.equal(typeof frontmatterMaped.team[0], 'object');
     });
+
+    it('Must be capable of parsing frontmatter as an array', function () {
+      const frontMatterTemplateParser = getFrontMatterArrayInstance(buildFrontMatterAsBlogPosts());
+  
+      const frontmatterMaped = frontMatterTemplateParser.performMapping();
+  
+      assert.equal(typeof frontmatterMaped[0].author, 'object');
+    });
   })
 });
 
@@ -83,4 +91,15 @@ function buildFrontMatterWithArrayTemplate() {
       ]
     }
   ];
+}
+
+function getFrontMatterArrayInstance(frontMatterData) {
+  const fakeTemplateParser = {
+    data: buildParserData()
+  };
+
+  return FrontMatterTemplateParser({
+    TemplateParser: fakeTemplateParser,
+    frontMatter: frontMatterData
+  });
 }
