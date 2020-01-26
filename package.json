@@ -4,7 +4,7 @@
   "description": "Gatsby plugin to parse template strings on frontmatter objects",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive ./tests/*.spec.js"
+    "test": "mocha --recursive ./tests/**/*.spec.js"
   },
   "keywords": [
     "gatsby",

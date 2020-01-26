@@ -3,9 +3,9 @@ const yaml = require('yaml');
 function YamlParser({ templateContents }) {
   const data = {};
 
-  function parse() {
+  (function parse() {
     templateContents.forEach(transformContentToData);
-  }
+  })()
 
   function transformContentToData(content) {
     const contentParsed = yaml.parse(content);

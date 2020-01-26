@@ -1,13 +1,13 @@
 const TEMPLATE_REGEX = /^{{.+}}$/;
 
-function FrontMatterTemplateParser({ TemplateParser, frontMatter }) {
+function FrontMatterTemplateParser({ TemplateParser, ObjectAcessorTranslator, frontMatter }) {
   function performMapping() {
     return Object
       .keys(frontMatter)
       .reduce((frontMatterTransformed, frontMatterProp) => {
         const frontMatterValue = frontMatter[frontMatterProp];
 
-        if (typeof frontMatterValue === 'object') {
+        if (typeof frontMatterValue === 'object' && frontMatterValue !== null) {
           frontMatterTransformed[frontMatterProp] = getSubFrontMatterParsed(frontMatterValue);
           return frontMatterTransformed;
         }
@@ -22,7 +22,11 @@ function FrontMatterTemplateParser({ TemplateParser, frontMatter }) {
   }
 
   function getSubFrontMatterParsed(subFrontMatter) {
-    const frontMatterTemplateParser = FrontMatterTemplateParser({ TemplateParser, frontMatter: subFrontMatter });
+    const frontMatterTemplateParser = FrontMatterTemplateParser({
+      frontMatter: subFrontMatter,
+      TemplateParser,
+      ObjectAcessorTranslator
+    });
 
     return frontMatterTemplateParser.performMapping();
   }
@@ -34,18 +38,7 @@ function FrontMatterTemplateParser({ TemplateParser, frontMatter }) {
   function transformTemplatePathToValue(template) {
     const acessor = template.replace(/[{}\s]*/g, '');
 
-    return translateObjectAcessor(acessor);
-  }
-
-  function translateObjectAcessor(acessor) {
-    const acessorList = acessor.split('.');
-    let templateValues = TemplateParser.data;
-
-    while (acessorList.length) {
-      templateValues = templateValues[acessorList.shift()];
-    }
-
-    return templateValues;
+    return ObjectAcessorTranslator.translate(acessor);
   }
 
   return {

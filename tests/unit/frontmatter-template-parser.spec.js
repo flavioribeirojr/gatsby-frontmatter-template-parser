@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { FrontMatterTemplateParser } = require('../src/frontmatter-template-parser');
+const { FrontMatterTemplateParser } = require('../../src/frontmatter-template-parser');
 
 describe('FrontMatterTemplateParser', function () {
   describe('#performMapping', function () {
@@ -46,7 +46,10 @@ function getFrontMatterInstance(frontMatterData) {
 
   return FrontMatterTemplateParser({
     TemplateParser: fakeTemplateParser,
-    frontMatter: frontMatterData[0]
+    frontMatter: frontMatterData[0],
+    ObjectAcessorTranslator: {
+      translate: () => ({})
+    }
   });
 }
 
@@ -100,6 +103,9 @@ function getFrontMatterArrayInstance(frontMatterData) {
 
   return FrontMatterTemplateParser({
     TemplateParser: fakeTemplateParser,
-    frontMatter: frontMatterData
+    frontMatter: frontMatterData,
+    ObjectAcessorTranslator: {
+      translate: () => ({})
+    }
   });
 }
