@@ -1,0 +1,23 @@
+{
+  "name": "gatsby-frontmatter-template-parser",
+  "version": "1.0.0",
+  "description": "Gatsby plugin to parse template strings on frontmatter objects",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive ./tests/*.spec.js"
+  },
+  "keywords": [
+    "gatsby",
+    "frontmatter",
+    "yaml"
+  ],
+  "author": "Flavio Ribeiro",
+  "license": "ISC",
+  "dependencies": {
+    "yaml": "^1.7.2"
+  },
+  "devDependencies": {
+    "assert": "^2.0.0",
+    "mocha": "^7.0.0"
+  }
+}
