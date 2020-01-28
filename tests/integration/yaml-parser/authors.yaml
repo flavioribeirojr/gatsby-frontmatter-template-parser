@@ -1,0 +1,5 @@
+namespace: authors
+
+johnDoe:
+  name: "John Doe"
+  age: 24

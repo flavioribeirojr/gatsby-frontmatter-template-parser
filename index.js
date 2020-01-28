@@ -3,11 +3,11 @@ const yaml = require('yaml');
 
 module.exports = ({ yamlModelsDirectory }) => ({
   stringfy: yaml.parse.bind(yaml),
-  parse: function (str, options) {
-    const frontmatter = yaml.parse(str, options);
+  parse: async function (str, options) {
+    const frontMatter = yaml.parse(str, options);
 
-    return getMappedFrontmatter({
-      frontmatter,
+    return await getMappedFrontmatter({
+      frontMatter,
       yamlModelsDirectory
     });
   }

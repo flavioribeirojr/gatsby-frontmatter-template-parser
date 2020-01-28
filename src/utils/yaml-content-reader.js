@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const FILE_EXTENSIONS_REGEX= /^(.*\.yaml|.*\.yml)$/;
+
 function YamlContentReader({ templatesPath }) {
   async function getYamlContent() {
     const files = await readTemplatesDir();
@@ -16,7 +18,10 @@ function YamlContentReader({ templatesPath }) {
           return reject(err);
         }
 
-        return resolve(files);
+        const yamlFiles = files
+          .filter(file => FILE_EXTENSIONS_REGEX.test(file));
+
+        return resolve(yamlFiles);
       });
     });
   }

@@ -3,19 +3,26 @@ const yaml = require('yaml');
 function YamlParser({ templateContents }) {
   const data = {};
 
-  (function parse() {
-    templateContents.forEach(transformContentToData);
-  })()
+  function parse() {
+    return templateContents
+      .reduce((parsedData, content) => {
+        return {
+          ...parsedData,
+          ...transformContentToData(content)
+        }
+      }, {});
+  }
 
   function transformContentToData(content) {
     const contentParsed = yaml.parse(content);
 
-    data[contentParsed.namespace] = contentParsed;
+    return {
+      [contentParsed.namespace]: contentParsed
+    };
   }
 
   return {
-    data,
-    parse
+    data: parse()
   };
 }
 
