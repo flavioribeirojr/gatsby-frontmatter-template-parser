@@ -4,38 +4,26 @@ const path = require('path');
 const FILE_EXTENSIONS_REGEX= /^(.*\.yaml|.*\.yml)$/;
 
 function YamlContentReader({ templatesPath }) {
-  async function getYamlContent() {
-    const files = await readTemplatesDir();
-    const contents = await Promise.all(files.map(getFileContents));
+  function getYamlContent() {
+    const files = readTemplatesDir();
+    const contents = files.map(getFileContents);
 
     return contents;
   }
 
   function readTemplatesDir() {
-    return new Promise((resolve, reject) => {
-      fs.readdir(templatesPath, (err, files) => {
-        if (err) {
-          return reject(err);
-        }
+    const files = fs.readdirSync(templatesPath);
+    
+    const yamlFiles = files
+      .filter(file => FILE_EXTENSIONS_REGEX.test(file));
 
-        const yamlFiles = files
-          .filter(file => FILE_EXTENSIONS_REGEX.test(file));
-
-        return resolve(yamlFiles);
-      });
-    });
+    return yamlFiles;
   }
 
   function getFileContents(fileName) {
-    return new Promise((resolve, reject) => {
-      fs.readFile(path.join(templatesPath, fileName), (err, contents) => {
-        if (err) {
-          return reject(err);
-        }
+    const contentsBuffer = fs.readFileSync(path.join(templatesPath, fileName));
 
-        return resolve(contents.toString());
-      });
-    });
+    return contentsBuffer.toString();
   }
 
   return {

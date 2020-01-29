@@ -3,8 +3,8 @@ const assert = require('assert');
 const path = require('path');
 
 describe('Plugin integration Test', function () {
-  it('When given valids parameters, must return the mapped frontmatter', async function () {
-    const frontmatterMapped = await getMappedFrontmatter({
+  it('When given valids parameters, must return the mapped frontmatter', function () {
+    const frontmatterMapped = getMappedFrontmatter({
       yamlModelsDirectory: path.join(__dirname),
       frontMatter: [
         {

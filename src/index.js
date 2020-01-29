@@ -3,8 +3,8 @@ const { ObjectAcessorTranslator } = require('./object-acessor-translator');
 const { YamlParser } = require('./utils/yaml-parser');
 const { YamlContentReader } = require('./utils/yaml-content-reader');
 
-async function getMappedFrontmatter({ yamlModelsDirectory, frontMatter }) {
-  const yamlContents = await YamlContentReader({ templatesPath: yamlModelsDirectory }).getYamlContent();
+function getMappedFrontmatter({ yamlModelsDirectory, frontMatter }) {
+  const yamlContents = YamlContentReader({ templatesPath: yamlModelsDirectory }).getYamlContent();
 
   const yamlParser = YamlParser({ templateContents: yamlContents });
   const objectAcessorTranslator = ObjectAcessorTranslator({ targetObject: yamlParser.data });
