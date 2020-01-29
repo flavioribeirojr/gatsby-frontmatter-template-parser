@@ -1,6 +1,6 @@
 {
   "name": "gatsby-frontmatter-template-parser",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Gatsby plugin to parse template strings on frontmatter objects",
   "main": "index.js",
   "scripts": {
